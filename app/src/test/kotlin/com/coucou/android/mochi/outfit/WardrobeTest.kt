@@ -70,6 +70,7 @@ class WardrobeTest {
     }
 
     @Test fun theListsAreTheSameAsOnTheComputer() {
+        org.junit.Assume.assumeTrue(ReferenceFiles.has("windows/src/mochi/wardrobe.ts"))
         val ts = ReferenceFiles.read("windows/src/mochi/wardrobe.ts")
         val body = ts.substringAfter("export const OUTFIT_SELECTIONS = [").substringBefore("] as const")
         val ids = Regex("\"(\\w+)\"").findAll(body).map { it.groupValues[1] }.toList()

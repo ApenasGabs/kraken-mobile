@@ -23,6 +23,7 @@ class PillsTest {
     }
 
     @Test fun catalogMatchesDesktopExceptAppleMusic() {
+        org.junit.Assume.assumeTrue(ReferenceFiles.has("windows/src/core/pills.ts"))
         val expected = reference().filter { it.id != "integration_music" }
         assertTrue("parsed too few pills from pills.ts", expected.size >= 20)
         assertEquals(expected.map { it.id }, Pills.catalog.map { it.id })

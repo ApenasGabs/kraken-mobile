@@ -38,7 +38,13 @@ internal class FakeDesktop(tls: Boolean) : AutoCloseable {
 
     init {
         val ks = KeyStore.getInstance("PKCS12")
-        javaClass.getResourceAsStream("/test-desktop.p12").use { ks.load(it, "changeit".toCharArray()) }
+        val stream = javaClass.getResourceAsStream("/test-desktop.p12")
+            ?: javaClass.classLoader?.getResourceAsStream("test-desktop.p12")
+            ?: javaClass.getResourceAsStream("test-desktop.p12")
+            ?: java.io.File("src/test/resources/test-desktop.p12").takeIf { it.exists() }?.inputStream()
+            ?: java.io.File("app/src/test/resources/test-desktop.p12").takeIf { it.exists() }?.inputStream()
+            ?: error("test-desktop.p12 not found")
+        stream.use { ks.load(it, "changeit".toCharArray()) }
         certSha256 = MessageDigest.getInstance("SHA-256")
             .digest(ks.getCertificate("desktop").encoded).joinToString("") { "%02x".format(it) }
         server = if (tls) {

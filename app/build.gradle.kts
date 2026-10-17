@@ -59,6 +59,7 @@ android {
     sourceSets["main"].java.srcDirs("src/main/kotlin")
     sourceSets["debug"].java.srcDirs("src/debug/kotlin") // the Widgets preview receiver: debug builds only
     sourceSets["test"].java.srcDirs("src/test/kotlin")
+    sourceSets["test"].resources.srcDirs("src/test/resources")
 }
 
 dependencies {

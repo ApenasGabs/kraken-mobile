@@ -45,6 +45,7 @@ class ProtocolServicesTest {
     }
 
     @Test fun theKnownIdsAreThoseOfTheCatalog() {
+        org.junit.Assume.assumeTrue(com.coucou.android.ReferenceFiles.has("windows/src/core/pills.ts"))
         val ts = com.coucou.android.ReferenceFiles.read("windows/src/core/pills.ts")
         for (id in listOf("integration_stripe", "integration_github", "integration_vercel", "integration_n8n", "integration_resend", "integration_notion", "integration_calcom")) {
             assertTrue(id, ts.contains("\"$id\""))

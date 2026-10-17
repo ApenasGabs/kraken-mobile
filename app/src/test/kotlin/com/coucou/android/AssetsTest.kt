@@ -11,6 +11,7 @@ class AssetsTest {
     private val res = File("src/main/res")
 
     @Test fun everyBundledSoundIsTheDesktopsOwnFileByteForByte() {
+        org.junit.Assume.assumeTrue(ReferenceFiles.has("NotchBuddy/Resources/sounds"))
         val desktop = ReferenceFiles.file("NotchBuddy/Resources/sounds").listFiles { f -> f.extension == "wav" }!!.associateBy { it.name }
         for (f in raw.listFiles()!!) {
             val original = desktop[f.name] ?: error("${f.name} is not one of the desktop's sounds")
