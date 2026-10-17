@@ -10,13 +10,13 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class NavigationTest {
-    @Test fun theBarAlwaysHasHomeChatAndSettingsInThatOrder() {
-        assertEquals(listOf(Tab.HOME, Tab.CHAT, Tab.SETTINGS), Nav.tabs())
+    @Test fun theBarAlwaysHasHomeWhatNextChatAndSettingsInThatOrder() {
+        assertEquals(listOf(Tab.HOME, Tab.WHAT_NEXT, Tab.CHAT, Tab.SETTINGS), Nav.tabs())
     }
 
-    @Test fun theBarShowsOnTheThreeRootsOnly() {
-        for (s in listOf(Screen.HOME, Screen.CHAT, Screen.SETTINGS)) assertTrue("$s", Nav.barVisible(s, keyboardOpen = false))
-        for (s in listOf(Screen.HISTORY, Screen.GALLERY, Screen.DIAGNOSTICS, Screen.LICENCES, Screen.SESSION, Screen.SCAN)) assertFalse("$s", Nav.barVisible(s, false))
+    @Test fun theBarShowsOnTheFourRootsOnly() {
+        for (s in listOf(Screen.HOME, Screen.WHAT_NEXT, Screen.CHAT, Screen.SETTINGS)) assertTrue("$s", Nav.barVisible(s, keyboardOpen = false))
+        for (s in listOf(Screen.HISTORY, Screen.GALLERY, Screen.WARDROBE, Screen.DIAGNOSTICS, Screen.LICENCES, Screen.SESSION, Screen.SCAN)) assertFalse("$s", Nav.barVisible(s, false))
     }
 
     @Test fun theBarHidesWhileTheKeyboardIsOpen() {
@@ -25,12 +25,14 @@ class NavigationTest {
 
     @Test fun backGoesUpOneLevelAndLeavesFromHome() {
         assertNull(Nav.back(Screen.HOME))
+        assertEquals(Screen.HOME, Nav.back(Screen.WHAT_NEXT))
         assertEquals(Screen.HOME, Nav.back(Screen.CHAT))
         assertEquals(Screen.HOME, Nav.back(Screen.SETTINGS))
         assertEquals(Screen.HOME, Nav.back(Screen.SESSION))
         assertEquals(Screen.HOME, Nav.back(Screen.SCAN))
         assertEquals(Screen.SETTINGS, Nav.back(Screen.HISTORY))
         assertEquals(Screen.SETTINGS, Nav.back(Screen.GALLERY))
+        assertEquals(Screen.SETTINGS, Nav.back(Screen.WARDROBE))
         assertEquals(Screen.SETTINGS, Nav.back(Screen.DIAGNOSTICS))
     }
 
@@ -47,7 +49,8 @@ class NavigationTest {
     }
 
     @Test fun pagesBelowSettingsKeepSettingsHighlighted() {
-        for (s in listOf(Screen.SETTINGS, Screen.HISTORY, Screen.GALLERY, Screen.DIAGNOSTICS)) assertEquals(Tab.SETTINGS, Nav.tabOf(s))
+        for (s in listOf(Screen.SETTINGS, Screen.HISTORY, Screen.GALLERY, Screen.WARDROBE, Screen.DIAGNOSTICS)) assertEquals(Tab.SETTINGS, Nav.tabOf(s))
+        assertEquals(Tab.WHAT_NEXT, Nav.tabOf(Screen.WHAT_NEXT))
         assertNull(Nav.tabOf(Screen.SCAN))
         assertNull(Nav.tabOf(Screen.SESSION))
     }

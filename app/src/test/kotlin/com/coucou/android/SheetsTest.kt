@@ -30,7 +30,7 @@ class SheetsTest {
         // The same rule at every door: the sheet's callback, the model, the notification and the island.
         assertTrue(main.contains("ApprovalSheetPlan.canAllowHere(r)"))
         assertTrue(src("app/AppModel.kt").substringAfter("fun decide(fingerprint").substringBefore("link?.decide").contains("canAllowHere(request)"))
-        assertTrue(src("app/Notifications.kt").contains("if (ApprovalSheetPlan.canAllowHere(r)) addAction"))
+        assertTrue(src("app/Notifications.kt").contains("showApproval"))
         assertTrue(src("ui/IslandOverlay.kt").contains("if (s.canAllow)"))
     }
 
