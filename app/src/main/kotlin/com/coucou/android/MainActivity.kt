@@ -113,6 +113,7 @@ import com.coucou.android.ui.DiffSheet
 import com.coucou.android.ui.QuestionSheet
 import com.coucou.android.ui.ServicesPanel
 import com.coucou.android.ui.UsagePanel
+import com.coucou.android.ui.WhatNextScreen
 import com.coucou.android.ui.WardrobeScreen
 import com.coucou.android.ui.HeroCard
 import com.coucou.android.ui.RecentPanel
@@ -199,7 +200,7 @@ class MainActivity : ComponentActivity() {
                         DiffSheet(model)
                         // Pairing, chat, an approval and a question never show in screenshots or in the recent-apps card.
                         val secure = SecureScreens.needed(
-                            screen, pairing = model.mode == Mode.NONE, approvalSheetShown = pending != null && screen != Screen.SCAN,
+                            screen, pairing = model.mode == Mode.NONE, approvalSheetShown = false,
                             questionSheetShown = questionPill != null, pairConfirmShown = model.pairRequest != null,
                         )
                         SideEffect {
